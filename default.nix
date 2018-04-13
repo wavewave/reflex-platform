@@ -610,13 +610,14 @@ in let this = rec {
   platforms = [
     "ghcjs"
     "ghc"
-  ] ++ (optionals (system == "x86_64-linux") [
-    "ghcAndroidArm64"
-    "ghcAndroidArmv7a"
-  ]) ++ (optionals iosSupport [
-    "ghcIosArm64"
-  ]);
-
+  ] #++ (optionals (system == "x86_64-linux") [
+   # "ghcAndroidArm64"
+   # "ghcAndroidArmv7a"
+  #]) ++ (optionals iosSupport [
+  #  "ghcIosArm64"
+  #]);
+  ;
+  
   attrsToList = s: map (name: { inherit name; value = builtins.getAttr name s; }) (builtins.attrNames s);
   mapSet = f: s: builtins.listToAttrs (map ({name, value}: {
     inherit name;
@@ -744,9 +745,10 @@ in let this = rec {
 
   tryReflexPackages = generalDevTools ghc
     ++ builtins.map reflexEnv platforms
-    ++ optional iosSupport iosReflexTodomvc
-    ++ optional (system == "x86_64-linux") androidReflexTodomvc;
-
+    # ++ optional iosSupport iosReflexTodomvc
+    # ++ optional (system == "x86_64-linux") androidReflexTodomvc;
+    ;
+    
   demoVM = (import "${nixpkgs.path}/nixos" {
     configuration = {
       imports = [
