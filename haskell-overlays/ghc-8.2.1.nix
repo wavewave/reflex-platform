@@ -24,4 +24,5 @@ self: super: {
   shelly = doJailbreak super.shelly;
   syb = self.callHackage "syb" "0.7" {};
   vector = self.callHackage "vector" "0.12.0.1" {};
+  wai-middleware-etag = doJailbreak super.wai-middleware-etag;
 }
