@@ -10,4 +10,5 @@ self: super: {
   # updated to aeson >= 0.11.2.1.
   aeson = let version = (import stage2Script { ghcjsBoot = null; } { inherit (self) callPackage; }).aeson.version;
     in haskellLib.dontCheck (self.callPackage (self.hackage2nix "aeson" version) {});
+  wai-middleware-etag = haskellLib.doJailbreak super.wai-middleware-etag;
 }
